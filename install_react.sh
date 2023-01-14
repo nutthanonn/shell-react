@@ -35,6 +35,34 @@ try
     eval npm install --save-dev --save-exact prettier
     eval touch .prettierrc
     echo '{ "singleQuote": true, "trailingComma": "all", "printWidth": 120, "tabWidth": 2 }' > .prettierrc
+    eval touch tsconfig.paths.json
+    echo '{ "compilerOptions": { "baseUrl": ".", "paths": { "@/*": ["src/*"] } } }' > tsconfig.paths.json
+    eval touch .eslintrc
+    echo '{ "extends": ["@react-app", "@react-app/jest", "prettier"], "plugins": ["prettier"], "rules": { "prettier/prettier": "error" } }' > .eslintrc
+    echo touch tsconfig.json
+    echo '
+        {
+        "compilerOptions": {
+            "target": "es5",
+            "lib": ["dom", "dom.iterable", "esnext"],
+            "allowJs": true,
+            "skipLibCheck": true,
+            "esModuleInterop": true,
+            "allowSyntheticDefaultImports": true,
+            "strict": true,
+            "forceConsistentCasingInFileNames": true,
+            "noFallthroughCasesInSwitch": true,
+            "module": "esnext",
+            "moduleResolution": "node",
+            "resolveJsonModule": true,
+            "isolatedModules": true,
+            "noEmit": true,
+            "jsx": "react-jsx"
+        },
+        "include": ["src"],
+        "extends": "./tsconfig.paths.json"
+        }
+    ' > tsconfig.json
 ) 
 catch || {
     case $ex_code in
